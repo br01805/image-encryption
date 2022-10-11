@@ -1,0 +1,4 @@
+opencv-python
+rsa
+matplotlib
+cv2-plt-imshow
