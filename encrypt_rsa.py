@@ -99,7 +99,7 @@ def is_prime(number: int) -> bool:
         return False
 
     # Calculate minimum number of rounds.
-    k = get_primality_testing_rounds(number)
+    k = get_primalitMy_testing_rounds(number)
 
     # Run primality testing with (minimum + 1) rounds.
     return miller_rabin_primality_testing(number, k + 1)
@@ -131,36 +131,23 @@ def get_prime(nbits: int) -> int:
             # Retry if not prime
 
 
-def gcd_extended(e, euler_totient):
-    a1, a2, b1, b2, d1, d2 = 1, 0, 0, 1, euler_totient, e
-
-    while d2 != 1:
-        # k
-        k = (d1 // d2)
-
-        # a
-        temp = a2
-        a2 = a1 - (a2 * k)
-        a1 = temp
-
-        # b
-        temp = b2
-        b2 = b1 - (b2 * k)
-        b1 = temp
-
-        # d
-        temp = d2
-        d2 = d1 - (d2 * k)
-        d1 = temp
-
-        d = b2
-
-    if d > euler_totient:
-        d = d % euler_totient
-    elif d < 0:
-        d = d + euler_totient
-
-    return d
+def gcd_extended(x, n):
+    p = 0  # Declare and assign value p.
+    newp = 1  # Declare and assign value newp.
+    a = n  # Declare value a to distinguish against value n, the input value.
+    b = x  # Declare and initialize value b to value x.
+    while b != 0:  # setup the logic of the while loop, will continue until the remainder is 0.
+        q = a // b  # Calculate the quotient value by divding the a and b. Both are integers, will provide an integer value.
+        r = a % b  # Calculate the remainder value.
+        tempp = (p - newp * q) % n  # Calculation step for pi = (pi-2) - (pi-1)(qi-2)mod(n).
+        p = newp  # Assigning p to newp, first one, then after each loop with change to the newp calculated from the prior loop.
+        newp = tempp  # Newp is assigned to the value of the tempp calculated from this iteration.
+        a = b  # Assign the current dividend to the current divisor.
+        b = r  # Assign the current divisor to the current remainder value.
+        if b == 1:  # Check condition, if the divisor is equal to 1, the return the newp
+            return newp
+    if a > 1:  # Condition to check if an inverse exists
+        return "No Inverse"
 
 
 def modular_exponentiation(a, d, n):
