@@ -33,10 +33,19 @@ def modular_exponentiation(a, d, n):
         d >>= 1
     return r
 
+def is_prime(a):
+    return not (a < 2 or any(a % x == 0 for x in range(2, int(a ** 0.5) + 1)))
 
+def get_prime(n):
+    while True:
+        integer = randnum.read_random_odd_int(n)
+
+        # Test for primeness
+        if is_prime(integer):
+            return integer
 def gen_keys(length: int):
-    p_prime = randnum.read_random_odd_int(length)
-    q_prime = randnum.read_random_odd_int(length)
+    p_prime = get_prime(length)
+    q_prime = get_prime(length)
     e = 65537  # This is standard for E
     n_modulus = p_prime * q_prime
     euler_totient = (p_prime - 1) * (q_prime - 1)
